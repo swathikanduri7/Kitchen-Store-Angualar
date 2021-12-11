@@ -13,10 +13,12 @@ export class CartComponent implements OnInit {
   recipes: any[];
   total:any;
   emptychechk:boolean;
+  paymentHandler:any = null;
 
   constructor(private router: Router, private authService: AuthService,private cartService:CartService) { }
 
   ngOnInit(): void {
+    this.invokeStripe();
     this.check()
     // this.getItem()
     this.empty()
@@ -109,7 +111,55 @@ export class CartComponent implements OnInit {
   }
   checkout()
   {
+    this.initializePayment();
+   
+  }
 
+
+  invokeStripe() {
+    if(!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement("script");
+      script.id = "stripe-script";
+      script.type = "text/javascript";
+      script.src = "https://checkout.stripe.com/checkout.js";
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51K5CjwSIYDqfPBTO6rpnautOVkXzl2zImxJCvCY26sdy7tLGl9D2KoBkPCrBWoTlhUvJCMPVN5NPOed7AmNn6xH600FuDAlLxL',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken)
+            alert('Payment has been successfull!');
+          }
+         
+        });
+      }
+      window.document.body.appendChild(script);
+    }
+   
+  }
+
+  initializePayment() {
+   
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_sLUqHXtqXOkwSdPosC8ZikQ800snMatYMb',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log({stripeToken})
+        this.router.navigate(['/cart'])
+        alert('Paid amount sucessfully!');
+        this.loadSuccessPage();
+      }
+    });
+  
+    paymentHandler.open({
+      name: 'Paying amount',
+      description: 'Paying payment for the order',
+      amount: this.total * 100
+    }); 
+    
+  }
+
+  loadSuccessPage(){
     this.cartService.deletecart().subscribe(
       data => {
 
@@ -126,4 +176,7 @@ export class CartComponent implements OnInit {
       }
     )
   }
+
+  
+
 }

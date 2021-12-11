@@ -30,14 +30,22 @@
 <body>
   <app-glow></app-glow>
   <app-navbar></app-navbar>
-  <app-search></app-search>
-  <!-- </div> -->
-
+  <br><br>
+  <!-- <app-search></app-search> -->
+    <div id="outer" class="search-box">
+	<h1>Search for the items &nbsp; </h1>
+      <input type="text"
+	  name="search" [(ngModel)]="searchText"
+	  autocomplete="off" placeholder="enter dish name ">
+    </div>  
+	
+	<br><br>
  
-  <main>   
+  <main>  
+    
     <section class="cards">
-
-      <div class="crd" *ngFor="let recipe of recipes">
+    
+      <div class="crd" *ngFor="let recipe of recipes | filter:searchText">
         <div class="card__image-container">
           <img src="../../../assets/recipe/{{recipe.dishimage}}" alt="Detailed image description would go here." style="width: auto; height:100%;" />
         </div>

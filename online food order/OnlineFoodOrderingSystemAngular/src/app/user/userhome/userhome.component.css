@@ -289,3 +289,11 @@ padding-bottom: 2%;
   background-color: red;
   color: white;
 }
+
+#outer {
+	border-radius: 100%;
+   display: flex;
+  justify-content: center;
+ 
+  
+}

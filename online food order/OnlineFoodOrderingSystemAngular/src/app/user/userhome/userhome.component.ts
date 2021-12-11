@@ -4,6 +4,9 @@ import { AuthService } from 'src/app/services/auth.service';
 import { CartService } from 'src/app/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @Component({
   selector: 'app-userhome',
   templateUrl: './userhome.component.html',
@@ -11,6 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UserhomeComponent implements OnInit {
   recipes: any[];
+  searchText;
+  
   constructor(private router: Router, private authService: AuthService, private cartService: CartService, private toastr: ToastrService) { }
 
   ngOnInit(): void {

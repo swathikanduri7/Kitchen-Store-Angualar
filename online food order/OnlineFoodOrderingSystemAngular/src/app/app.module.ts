@@ -20,6 +20,9 @@ import { EditrecipeComponent } from './admin/editrecipe/editrecipe.component';
 import { NavbarComponent } from './user/navbar/navbar.component';
 import { GlowComponent } from './user/glow/glow.component';
 
+// search module
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 // toster
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -38,6 +41,7 @@ import { EmptycartComponent } from './user/emptycart/emptycart.component';
 import { ViewoneorderComponent } from './admin/viewoneorder/viewoneorder.component';
 import { ViewoneuserComponent } from './admin/viewoneuser/viewoneuser.component';
 import { SearchComponent } from './user/userhome/search/search.component';
+
 
 @NgModule({
   declarations: [
@@ -79,6 +83,7 @@ import { SearchComponent } from './user/userhome/search/search.component';
     FormsModule,
     BrowserAnimationsModule, // required animations  module
     ToastrModule.forRoot(),
+	Ng2SearchPipeModule,
   ],
   providers: [AuthGuard,AdminGuard,{
     provide:HTTP_INTERCEPTORS,
